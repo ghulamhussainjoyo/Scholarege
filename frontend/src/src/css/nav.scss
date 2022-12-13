@@ -1,0 +1,57 @@
+@use "variable.scss" as var;
+@use "functions.scss" as fns;
+
+.nav {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    margin-bottom: 40px;
+
+    & .logo
+    {
+        font-size: 16px
+    }
+
+    & .authitication {
+
+        & .link {
+            @include fns.link(black);
+        }
+
+        & :first-child {
+            margin-right: 10px;
+            @include fns.authBtn(white,black);
+        }
+        & :last-child
+        {
+            @include fns.authBtn(var.$headerBodyColor,white)
+        }
+
+    }
+
+}
+
+
+
+.navbar {
+    & ul {
+        cursor: pointer;
+        list-style-type: none;
+        display: flex;
+
+        & li {
+            padding-left: 1rem;
+
+            & .link {
+                @include fns.link(black);
+            }
+
+            & :hover {
+                color: red;
+            }
+        }
+    }
+
+}

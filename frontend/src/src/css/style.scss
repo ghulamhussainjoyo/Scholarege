@@ -1,0 +1,24 @@
+@use "./fontFamily.scss";
+@import url('./nav.scss');
+@import url('./home/header.scss');
+@import url('./scholarship.scss');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
+
+*
+{
+    margin: 0%;
+    padding: 0%;
+    // font-family: 'oswald regular' ;
+    user-select: none;
+    
+}
+
+
+
+// Navbar
+
+

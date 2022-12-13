@@ -1,0 +1,17 @@
+@mixin authBtn($bgColor,$textColor) 
+{
+    background-color: $bgColor;
+    color: $textColor;
+    padding: 2px 10px;
+    border-radius: 4px;
+}
+
+@mixin link($textColor) 
+{
+    text-decoration: none;
+    color: $textColor;
+    & :hover
+    {
+        color: red;
+    }
+}
