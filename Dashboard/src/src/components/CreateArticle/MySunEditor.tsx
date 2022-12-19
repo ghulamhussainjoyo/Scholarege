@@ -6,15 +6,38 @@ import plugins from 'suneditor/src/plugins';
 import { CopyButton, ActionIcon, Tooltip } from '@mantine/core';
 import { BiCheck, BiCopy } from 'react-icons/bi'
 import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux.hooks';
+import { setArticleValue } from '../../redux/slice/Article.slice';
+import { useNavigate } from 'react-router-dom';
+import { setNotifaction } from '../../redux/slice/notification.slice';
+import { useCreateArticleMutation } from '../../service/article.service';
 
 // import { IconCopy, IconCheck } from '@tabler/icons';
 
 
 function MySunEditor() {
 
+    const { article } = useAppSelector((state) => state.article);
+    const [createArticle, { isLoading, isError, isSuccess, data }] = useCreateArticleMutation();
+
+    // console.log({ isLoading });
+    // console.log({ isError });
+    // console.log({ isSuccess });
+    // console.log({ data });
+
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const [generatedImageUrl, setGeneratedImageUrl] = useState(() => localStorage.getItem('last-url-generated'));
     const [contentFromEditor, setContentFromEditor] = useState<string>()
-    // const contentDivRef = useRef<HTMLDivElement>(null);
+
+
+    // ------------>
+    const handleChange = (content: string) => {
+        // console.log(content);
+        dispatch(setArticleValue({ article: content }))
+
+    }
+
 
     const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -30,15 +53,40 @@ function MySunEditor() {
         }
     }
 
-    const handleChange = (content: string) => {
-        console.log(content);
-        setContentFromEditor(content)
+    const onClearClick = () => {
+        dispatch(setArticleValue({ article: "" }))
+    }
 
+    const onUploadClick = () => {
+        if (article?.article && article?.heading && article?.description && article?.region &&
+            article?.category) {
+
+            const formData = new FormData();
+            formData.append("heading", article.heading)
+            formData.append("description", article.description)
+            formData.append("category", article.category)
+            formData.append("region", article.region)
+            formData.append("article", JSON.stringify(article.article));
+            formData.append("userID", "2724ac71-3a17-420c-a3ca-a07ee08b68f5")
+            createArticle(formData).then(result => console.log(result)).catch(err => console.log(err));
+            // console.log({ m })
+            // axios.post('http://localhost:5000/article', { hello: "pakistan" }).then(result =>
+            //     console.log("data posted successfully")
+            // ).catch(_err => console.log("found a error", _err));
+            // navigate('/')
+        }
+        else {
+            dispatch(setNotifaction({ message: "Please fill all the fileds", error: true }))
+
+        }
     }
 
 
+
+
     return (
-        <Card className='m-10 max-h-[100vh] bg-red-500'>
+        <Card className='m-10  bg-red-500'>
+            {JSON.stringify(article)}
             <div className="max-h-[100%]">
                 {/* <div ref={contentDivRef}></div> */}
 
@@ -84,7 +132,7 @@ function MySunEditor() {
 
 
                 <SunEditor
-
+                    defaultValue={article?.article}
                     height={`${(window.innerHeight - (0.5 * window.innerHeight))}px`}
                     setAllPlugins={false}
                     onChange={handleChange}
@@ -132,6 +180,22 @@ function MySunEditor() {
 
                 />
             </div>
+
+            <div className='flex space-x-3'>
+                <Button
+                    className=''
+                    onClick={onClearClick}
+                >
+                    Clear
+                </Button>
+                <Button
+                    className=''
+                    onClick={onUploadClick}
+                >
+                    Upload
+                </Button>
+            </div>
+
         </Card>
     )
 }

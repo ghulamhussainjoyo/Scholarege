@@ -18,6 +18,7 @@ export class PostRoutes extends CommonRoutesConfig {
             .get(ArticleController.getAllAticles)
             .post(ArticleController.createArticle)
 
+
         // article get and delete and update
         this.app.param('articleId', articleMiddleware.extractArticleId);
         this.app

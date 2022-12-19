@@ -9,7 +9,8 @@ import { PostRoutes } from './src/routes/article.routes.config';
 import { UserRoutes } from './src/routes/user.route.config';
 import debug from 'debug';
 import bodyparser from 'body-parser'
-
+import fileUpload from 'express-fileupload'
+const cookieParser = require('cookie-parser');
 
 
 // --------------------------------------------
@@ -19,10 +20,16 @@ const port = 5000;
 const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug('app');
 
-
-app.use(express.json())
-app.use(cors())
-app.use(bodyparser.json())
+const corsOptions = {
+    origin: '*',
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+}
+app.use(bodyparser.json({ limit: '50mb' }));
+app.use(bodyparser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+app.use(fileUpload());
+// app.use(bodyparser.urlencoded({ extended: true }));
+app.use(cors(corsOptions))
 
 
 

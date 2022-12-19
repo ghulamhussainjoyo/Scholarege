@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import AppRoutes from './src/routes/AppRoutes';
+import AppRoutes from './src/routes/App.routes';
 import './src/style/index.css'
 
 function App() {
