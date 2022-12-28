@@ -7,17 +7,17 @@ import React, {
   useState,
 } from "react";
 
-import BreadCrumbC from "../components/MyBreadCrumb";
+import BreadCrumbC from "../components/others/MyBreadCrumb";
 
-import Header from "../components/Search/Header";
-import Filters from "../components/Search/Filter";
+import Header from "../components/Scholarships/Header";
+import Filters from "../components/Scholarships/Filter";
 
 import { SheetRef } from "react-modal-sheet";
-import MyBottomSheer from "../components/Search/MyBottomSheet";
+import MyBottomSheer from "../components/Scholarships/MyBottomSheet";
 
 import ArticlesContainer, {
   interfaceRightComponent as interfaceArticlesContainer,
-} from "../components/Search/ArticlesContainer";
+} from "../components/Scholarships/ArticlesContainer";
 
 const ScholarshipContainer: React.FC<{
   LeftCompoenent: React.FC<{ iconColor: string }>;

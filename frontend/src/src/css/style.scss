@@ -1,24 +1,35 @@
 @use "./fontFamily.scss";
-@import url('./nav.scss');
-@import url('./home/header.scss');
-@import url('./scholarship.scss');
+@import url("./nav.scss");
+@import url("./home/header.scss");
+@import url("./scholarship.scss");
 
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
 
-
-*
-{
+* {
     margin: 0%;
     padding: 0%;
     // font-family: 'oswald regular' ;
     user-select: none;
-    
 }
 
+// Articel Design
+.article-design {
+}
 
+.article-design ul {
+    list-style-type: disc;
+    margin: 0 0 20px 40px;
+}
 
-// Navbar
+.article-design ol {
+    list-style-type: decimal;
+    margin: 0 0 20px 40px;
+}
 
-
+.article-design a {
+    color: rgb(104, 104, 104);
+    // font-weight: bold;
+    text-decoration: underline;
+}
