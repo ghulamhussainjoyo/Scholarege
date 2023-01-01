@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Article, IArticles } from "./interface/Article.interface";
+import { IArticles } from "./interface/Article.interface";
 import { API_URL } from "./api.service";
 
 
@@ -8,42 +8,56 @@ interface ICreateArticle {
     message: string
 }
 
+interface IGetAllArticles {
+    heading?: string;
+    category?: string;
+    region?: string
+
+}
+
 export const ArticleService = createApi({
 
     reducerPath: 'articleService',
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL
     }),
-    tagTypes: ["create-article", 'articles'],
+    tagTypes: ["create-article", 'articles', 'single-article'],
     endpoints: (builder) => ({
-        createArticle: builder.mutation<ICreateArticle, FormData>({
+
+        // Create an Article --------------------------------->
+        createArticle: builder.mutation<any, { [key: string]: any }>({
             query: (article) => {
                 // console.log("mutation article", article.get('article'))
                 return {
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-type": "application/json",
                     },
-                    mode: 'no-cors',
                     url: '/article',
                     method: 'POST',
                     body: article,
                 }
             },
-            invalidatesTags: ['create-article', 'articles'],
+            invalidatesTags: ['articles'],
         }),
 
-        getAllArticles: builder.query<IArticles, void>({
-            query: () => {
+        // Get all Articles ------------------------------------->
+        getAllArticles: builder.query<IArticles, IGetAllArticles>({
+            query: (filter) => {
+                console.log(filter)
                 return {
                     headers: {
                         "Content-Type": "application/json",
+                        "Access-Control-Request-Method": "GET"
+
                     },
-                    url: '/article',
+
+                    url: `/article?heading=${filter.heading}&category=${filter.category}&region=${filter.region}`,
                     method: "GET"
                 }
-            }
+            },
+            providesTags: ['articles']
         }),
-
+        // Get single Article ------------------------------------->
         getArticleById: builder.query<IArticles, string>({
             query: (id) => {
                 return {
@@ -53,7 +67,8 @@ export const ArticleService = createApi({
                     url: `/article/${id}`,
                     method: "GET"
                 }
-            }
+            },
+            providesTags: ['single-article']
         })
     })
 })

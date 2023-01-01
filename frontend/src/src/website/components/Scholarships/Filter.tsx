@@ -1,5 +1,4 @@
-import { Checkbox, Label } from "flowbite-react";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { BiReset } from "react-icons/bi";
 import { Accordion } from "flowbite-react";
 import { ActionIcon } from "@mantine/core";
@@ -11,7 +10,23 @@ const FilterSubHeading: React.FC<{ subHeading: string }> = ({ subHeading }) => {
   );
 };
 
-const Filter: React.FC<{ iconColor: string }> = ({ iconColor }) => {
+const Filter: React.FC<{
+  iconColor: string;
+  scholarshipFilter: { [key: string]: boolean };
+  oppertunitiesFilter: { [key: string]: boolean };
+  regionFilter: { [key: string]: boolean };
+  handleScholarshipFilterChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleOppertunityFilterChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleRegionFilterChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}> = ({
+  iconColor,
+  scholarshipFilter,
+  oppertunitiesFilter,
+  regionFilter,
+  handleScholarshipFilterChange,
+  handleOppertunityFilterChange,
+  handleRegionFilterChange,
+}) => {
   return (
     <section className="hidden lg:flex flex-col " id="checkbox">
       <div className="flex items-center  justify-between mx-1 mb-4">
@@ -31,15 +46,14 @@ const Filter: React.FC<{ iconColor: string }> = ({ iconColor }) => {
           <Accordion.Content className="space-y-4">
             {/* checkbox */}
 
-            <MyFilterCheckbox key={"Doctoral"} name="Doctoral" />
-
-            <MyFilterCheckbox key={"Grudate"} name="Grudate" />
-
-            <MyFilterCheckbox key={"Inrermediate"} name="Inrermediate" />
-
-            <MyFilterCheckbox key={"Masters"} name="Masters" />
-
-            <MyFilterCheckbox key={"Undergraduate"} name="Undergraduate" />
+            {Object.entries(scholarshipFilter).map(([key, value]) => (
+              <MyFilterCheckbox
+                key={key}
+                name={key}
+                checked={value}
+                onChange={handleScholarshipFilterChange}
+              />
+            ))}
 
             {/* ---------- */}
           </Accordion.Content>
@@ -50,7 +64,7 @@ const Filter: React.FC<{ iconColor: string }> = ({ iconColor }) => {
           <Accordion.Title>Oppertunities</Accordion.Title>
           <Accordion.Content className="space-y-4">
             {/* checkbox */}
-            <MyFilterCheckbox key={"Conference"} name="Conference" />
+            {/* <MyFilterCheckbox key={"Conference"} name="Conference" />
 
             <MyFilterCheckbox key={"Events"} name="Events" />
 
@@ -75,7 +89,16 @@ const Filter: React.FC<{ iconColor: string }> = ({ iconColor }) => {
               name="Training Program"
             />
 
-            <MyFilterCheckbox key={"Workshops"} name="Workshops" />
+            <MyFilterCheckbox key={"Workshops"} name="Workshops" /> */}
+
+            {Object.entries(oppertunitiesFilter).map(([key, value]) => (
+              <MyFilterCheckbox
+                key={key}
+                name={key}
+                checked={value}
+                onChange={handleOppertunityFilterChange}
+              />
+            ))}
 
             {/* ---------- */}
           </Accordion.Content>
@@ -85,7 +108,7 @@ const Filter: React.FC<{ iconColor: string }> = ({ iconColor }) => {
         <Accordion.Panel>
           <Accordion.Title>Region</Accordion.Title>
           <Accordion.Content className="space-y-4">
-            <MyFilterCheckbox key={"USA"} name="USA" />
+            {/* <MyFilterCheckbox key={"USA"} name="USA" />
             <MyFilterCheckbox key={"UK"} name="UK" />
             <MyFilterCheckbox key={"Canada"} name="Canada" />
             <MyFilterCheckbox key={"China"} name="China" />
@@ -94,7 +117,15 @@ const Filter: React.FC<{ iconColor: string }> = ({ iconColor }) => {
             <MyFilterCheckbox key={"Russia"} name="Russia" />
             <MyFilterCheckbox key={"Germany"} name="Germany" />
             <MyFilterCheckbox key={"Japan"} name="Japan" />
-            <MyFilterCheckbox key={"Spain"} name="Spain" />
+            <MyFilterCheckbox key={"Spain"} name="Spain" /> */}
+            {Object.entries(regionFilter).map(([key, value]) => (
+              <MyFilterCheckbox
+                key={key}
+                name={key}
+                checked={value}
+                onChange={handleRegionFilterChange}
+              />
+            ))}
 
             {/* ---------- */}
           </Accordion.Content>

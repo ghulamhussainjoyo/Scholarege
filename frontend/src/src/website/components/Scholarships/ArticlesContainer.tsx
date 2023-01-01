@@ -6,12 +6,14 @@ import MyIconButton from "../others/MyIconButton";
 import SearchInput from "./SearchInput";
 import ArticleCards from "../others/MyArticleCard";
 import { ActionIcon } from "@mantine/core";
-import { useGetAllArticlesQuery } from "../../redux/service/article.service";
+
 import { v4 as uuid4 } from "uuid";
+import { IArticles } from "../../../redux/service/interface/Article.interface";
 export interface interfaceRightComponent {
   iconColor: string;
   isGirdView: boolean;
   searchValue: String;
+  articleData: IArticles;
   handleOnClickBottomSheet: () => void;
   handleOnClickGridView: () => void;
   handleOnClickListView: () => void;
@@ -24,17 +26,13 @@ const ArticlesContainer: React.FC<interfaceRightComponent> = ({
   iconColor,
   isGirdView,
   searchValue,
+  articleData,
   handleOnClickBottomSheet,
   handleOnClickGridView,
   handleOnClickListView,
   onInputChange,
   handleOnSearchClick,
 }) => {
-  const { data, isFetching, isLoading, isError, error, isSuccess } =
-    useGetAllArticlesQuery();
-  console.log(data);
-  console.log(isFetching);
-
   return (
     <Fragment>
       <div className="w-full">
@@ -105,23 +103,15 @@ const ArticlesContainer: React.FC<interfaceRightComponent> = ({
               : "lg:grid-cols-1 3xl:grid-cols-2"
           } gap-4`}
         >
-          {!isFetching ? (
-            <Fragment>
-              {isError && <p>{JSON.stringify(error)}</p>}
-              {isSuccess &&
-                data?.article.map((article) => (
-                  <ArticleCards
-                    articleID={article.articleID}
-                    key={uuid4()}
-                    heading={article.heading}
-                    description={article.description}
-                    category={article.category}
-                  />
-                ))}
-            </Fragment>
-          ) : (
-            <Fragment>Fetching....</Fragment>
-          )}
+          {articleData.article.map((article) => (
+            <ArticleCards
+              articleID={article.articleID}
+              key={uuid4()}
+              heading={article.heading}
+              description={article.description}
+              category={article.category}
+            />
+          ))}
         </section>
       </div>
     </Fragment>

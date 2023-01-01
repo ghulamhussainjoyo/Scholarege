@@ -51,6 +51,7 @@ const Paragraph = ({ description }: { description: string }) => {
   const paragraphRef = useRef<HTMLDivElement>(null);
 
   console.log(description);
+
   return (
     <section className="article-prargraph mb-10">
       <div
