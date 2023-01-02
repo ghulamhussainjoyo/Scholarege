@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Article from "../website/pages/Article";
-import MyNavbar from "../website/components/others/MyNavbar";
-import MyFooter from "../website/components/others/MyFooter";
-import About from "../website/pages/About";
-import Contact from "../website/pages/Contact";
-import Home from "../website/pages/Home";
-import Scholarships from "../website/pages/Scholarships";
-import Team from "../website/pages/Team";
+import Article from "../../website/pages/Article";
+import MyNavbar from "../../website/components/others/MyNavbar";
+import MyFooter from "../../website/components/others/MyFooter";
+import About from "../../website/pages/About";
+import Contact from "../../website/pages/Contact";
+import Home from "../../website/pages/Home";
+import Scholarships from "../../website/pages/Scholarships";
+import Team from "../../website/pages/Team";
 
 function MyRoute() {
   return (

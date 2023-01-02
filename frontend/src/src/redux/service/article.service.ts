@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IArticles } from "./interface/Article.interface";
+import { IArticles } from "../../common/interface/Article.interface";
 import { API_URL } from "./api.service";
 
 
@@ -43,12 +43,9 @@ export const ArticleService = createApi({
         // Get all Articles ------------------------------------->
         getAllArticles: builder.query<IArticles, IGetAllArticles>({
             query: (filter) => {
-                console.log(filter)
                 return {
                     headers: {
                         "Content-Type": "application/json",
-                        "Access-Control-Request-Method": "GET"
-
                     },
 
                     url: `/article?heading=${filter.heading}&category=${filter.category}&region=${filter.region}`,

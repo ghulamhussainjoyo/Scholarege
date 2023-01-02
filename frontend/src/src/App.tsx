@@ -1,7 +1,7 @@
 import React from "react";
 import { MantineProvider } from "@mantine/core";
 import MyRoute from "./Routes/MyRoute";
-import Dashboard from "./dashboard/pages/Dashboard";
+import Dashboard from "../dashboard/pages/Dashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
