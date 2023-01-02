@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IArticles } from "./interface/Article.interface";
+import { API_URL } from "./api.service";
 
 
 interface ICreateArticle {
@@ -11,22 +12,18 @@ export const ArticleService = createApi({
 
     reducerPath: 'articleService',
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:5000"
+        baseUrl: API_URL
     }),
     tagTypes: ["create-article", 'articles'],
     endpoints: (builder) => ({
-        createArticle: builder.mutation<ICreateArticle, FormData>({
+
+        createArticle: builder.mutation<any, { [key: string]: any }>({
             query: (article) => {
                 // console.log("mutation article", article.get('article'))
                 return {
                     headers: {
-                        "Content-Type": "application/json",
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'POST',
-                        'Access-Control-Allow-Headers': 'application/json'
-
+                        "Content-type": "application/json",
                     },
-                    mode: 'no-cors',
                     url: '/article',
                     method: 'POST',
                     body: article,
@@ -40,12 +37,16 @@ export const ArticleService = createApi({
                 return {
                     headers: {
                         "Content-Type": "application/json",
+                        "Access-Control-Request-Method": "GET"
+
                     },
                     url: '/article',
                     method: "GET"
                 }
-            }
-        })
+            },
+            providesTags: ['articles']
+        }),
+
     })
 })
 

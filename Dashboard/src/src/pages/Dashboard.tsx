@@ -15,12 +15,6 @@ function Dashboard() {
   const { message, error } = useAppSelector((state) => state.notification);
   const { data, isError, isFetching, isLoading } = useGetAllArticlesQuery();
 
-  if (!isFetching) {
-    console.log("data--> dashboard start");
-    console.log(data?.article);
-    console.log("data--> dashboard end");
-  }
-
   return (
     <section className="flex">
       {error && (

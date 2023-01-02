@@ -11,7 +11,21 @@ const log: debug.IDebugger = debug('app:user.middleware')
 
 class UserMiddleware {
 
-    constructor() {
+
+
+    validateRequiredUserBodyFields(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction) {
+
+        if (req.body && req.body.email && req.body.password) {
+            next();
+        } else {
+            res.status(400).send({
+                error: `Missing required fields email and password`,
+            });
+        }
+
     }
 
     validateSameEmailDoesntExist(
@@ -22,8 +36,9 @@ class UserMiddleware {
 
         let stmt = `Select email from users where email="${req.body.email}"`
         MysqlDatabase.dbConnection.query(stmt, (err, result) => {
-            log(result[0].email);
+
             if (result.length !== 0) {
+                log(result[0].email);
                 res.status(400).send({ errors: ['User email already exists'] });
             }
             else {
@@ -33,6 +48,24 @@ class UserMiddleware {
 
 
 
+    }
+
+
+    async validateUserExists(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) {
+        let stmt = `Select email from users where userID="${req.params.id}"`
+        MysqlDatabase.dbConnection.query(stmt, (err, result) => {
+            log(result[0].userID);
+            if (result.length !== 0) {
+                res.status(400).send({ errors: [`User ${req.params.id} not found`] });
+            }
+            else {
+                next();
+            }
+        })
     }
 }
 

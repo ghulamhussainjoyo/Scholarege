@@ -27,7 +27,7 @@ const initialState: ArticleState = {
     }
 }
 
-let articleLocalStorageValue: ArticleState = JSON.parse(localStorage.getItem("article") as any);
+let articleLocalStorageValue: ArticleState = JSON.parse(localStorage.getItem("article") as any) || "";
 
 export const articleSlice = createSlice({
     name: "article",

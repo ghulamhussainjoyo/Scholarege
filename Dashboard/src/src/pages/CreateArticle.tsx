@@ -33,8 +33,8 @@ function CreateArticle() {
   };
 
   return (
-    <section className="h-64 p-10">
-      <Card className="h-[90vh]">
+    <section className="min-h-[90vh] p-10">
+      <Card className="">
         <section className="h-full">
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Create Article
@@ -55,7 +55,7 @@ function CreateArticle() {
         </section>
 
         <div className="flex justify-between">
-          <div>hello</div>
+          <div></div>
           <Button className="" onClick={onNextClickHandler}>
             Next
           </Button>

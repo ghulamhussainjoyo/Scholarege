@@ -3,6 +3,7 @@ import { CommonRoutesConfig } from './common.routes.config';
 import debug from 'debug';
 import ArticleController from '../controllers/article.controller';
 import articleMiddleware from '../middlewares/article.middleware';
+import bodyValidateMiddleware from '../common/middleware/body.validate.middleware';
 
 const log: debug.IDebugger = debug("route:article.routes")
 
@@ -16,7 +17,10 @@ export class PostRoutes extends CommonRoutesConfig {
 
         this.app.route(`/article`)
             .get(ArticleController.getAllAticles)
-            .post(ArticleController.createArticle)
+            .post(
+                bodyValidateMiddleware.verifyBodyFieldsErrors,
+                ArticleController.createArticle
+            )
 
 
         // article get and delete and update

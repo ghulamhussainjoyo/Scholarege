@@ -70,6 +70,7 @@ const SearchInput: React.FC<{
 function Articles() {
   const { isLoading, isError, isFetching, isSuccess, data, error } =
     useGetAllArticlesQuery();
+
   const [isGirdView, setGridView] = useState(true);
   const [_search, _setSearch] = useState("");
 

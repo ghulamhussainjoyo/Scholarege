@@ -1,6 +1,7 @@
 import express from 'express';
 import { validationResult } from 'express-validator'
-
+import debug from 'debug';
+const log: debug.IDebugger = debug("body.middleware")
 class BodyValidationMiddleware {
 
     verifyBodyFieldsErrors(
@@ -9,6 +10,7 @@ class BodyValidationMiddleware {
         next: express.NextFunction
     ) {
         const errors = validationResult(req);
+        log("erros", errors)
         if (!errors.isEmpty()) {
             return res.status(400).send({ errors: errors.array() });
         }
